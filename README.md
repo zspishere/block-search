@@ -1,70 +1,60 @@
-# Getting Started with Create React App
+# 1. 概述
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+该项目实现区块的查询和展示
 
-## Available Scripts
+- UI参考
 
-In the project directory, you can run:
+https://www.blockchain.com/btc/block/00000000000000000007878ec04bb2b2e12317804810f4c26033585b3f81ffaa
 
-### `yarn start`
+- API
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+https://blockchain.info/rawblock/00000000000000000007878ec04bb2b2e12317804810f4c26033585b3f81ffaa
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- API说明
 
-### `yarn test`
+https://www.blockchain.com/api/blockchain_api
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# 2. 开发与发布
 
-### `yarn build`
+## 如何开发
+```
+$ node -v
+v14.17.4
+$ yarn install
+$ yarn start
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## 如何发布
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- 生成发布包`build`，可以通过[nginx](https://hub.docker.com/_/nginx)部署到Production环境
+```
+$ yarn build
+$ docker run -d --name block-search \
+    -p 8080:80 \
+    -v `pwd`/build:/usr/share/nginx/html:ro \
+    nginx
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- 生成`docker image`，并启动
+```
+$ yarn release
+$ docker run -d -p 8080:80 shuzhang/block-search:0.1.0
+```
 
-### `yarn eject`
+## 如何测试
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- 打开浏览器，范围`http://127.0.0.1:8080`
+- 再搜索框输入`Block Height`或者`Block Hash`，例如645445，`回车`完成搜索
+- 查看确认搜索结果
+![Block Headers](./assets/block-headers.png)
+![Block Transaction List](./assets/transaction-list.png)
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+# 3. Next
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+由于时间原因遗留一些工作项，后续继续完善
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Block简介的一些数据，由于不清楚计算规则，暂未完成
+- Block Header的一些字段，暂未填写，为`Not Implemented`状态
+- Block Transactions的Fee数据未填写
+- Block Transactions表格的自适应功能，暂未实现
+- 法定货币和BTC转换的工作，尚未实现
