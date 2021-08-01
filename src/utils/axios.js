@@ -4,14 +4,17 @@ function getRowBlockInfo(blockHash, callback) {
   const baseUrl = 'https://blockchain.info/rawblock'
   const requestUrl = `${baseUrl}/${blockHash}`
   axios.get(requestUrl)
-    .then(function (response) {
-        console.log(response)
-        callback(response)
+    .then(response => {
+        callback(null, response)
     })
-    .catch(function (error) {
-        console.log(error);
+    .catch(error => {
+        if (error.response) {
+            console.log("error status", error.response.status)
+        }
+        console.log(error)
+        callback(error, null)
     })
-    .then(function () {
+    .then(() => {
         // always executed
     })
 }

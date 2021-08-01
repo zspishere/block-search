@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
-import { Input, Row, Col, Menu, Dropdown, Button, message } from 'antd'
-import { DownOutlined, SearchOutlined } from '@ant-design/icons'
+import { Input, Row, Col, Menu, Dropdown, Button, BackTop, message, notification } from 'antd'
+import { DownOutlined } from '@ant-design/icons'
 import {getRowBlockInfo} from '../../utils/axios'
 import TransactionList from './TransactionList'
 import BlockProfile from './BlockProfile'
@@ -12,10 +12,20 @@ const legalCurrencies = [
 export default () => {
   const [blockInfo, setBlockInfo] = useState()
   const [legalCurrency, setLegalCurrency] = useState(legalCurrencies[0])
+  const [loading, setLoading] = useState(false)
 
-  const search = (e) => {
-    getRowBlockInfo(e.target.value, (resp)=>{
-      setBlockInfo(resp.data)
+  const search = (value, _) => {
+    setLoading(true)
+    getRowBlockInfo(value, (err, resp)=>{
+      if (err) {
+        notification.error({
+          message: 'Block Search Error',
+          description: `Block ${value} is Not Found`,
+        })
+      } else {
+        setBlockInfo(resp.data)
+      }
+      setLoading(false)
     })
   }
 
@@ -33,15 +43,18 @@ export default () => {
     </Menu>
   )
 
+  const SearchInput = () => (
+    <Input.Search size="large"
+                  style={{width: "100%"}}
+                  placeholder="Search your block here"
+                  onSearch={search}
+                  loading={loading}/>
+  )
+
   const SearchBar = () => (
     <Row justify="space-between" align="middle">
-      <Col>
-        <Input size="large"
-               style={{width: "620px"}}
-               placeholder="Search your block"
-               onPressEnter={search}
-               prefix={<SearchOutlined />}
-        />
+      <Col span={10}>
+        <SearchInput />
       </Col>
       <Col>
         <Dropdown overlay={menu}>
@@ -55,13 +68,14 @@ export default () => {
 
   return (
     <div>
+      {blockInfo ?
       <Row justify="center" align="top">
         <Col span={20}>
-          <div style={{margin: "20px 0"}}>
-            <SearchBar/>
-          </div>
-          {blockInfo ?
           <div>
+            <BackTop visibilityHeight={100}/>
+            <div style={{margin: "20px 0", position: "sticky", top: "0px"}}>
+              <SearchBar/>
+            </div>
             <div style={{margin: "10px 30px"}}>
               <BlockProfile blockInfo={blockInfo} legalCurrency={legalCurrency}/>
             </div>
@@ -69,12 +83,18 @@ export default () => {
               <TransactionList txList={blockInfo.tx} blockHeight={blockInfo.height}/>
             </div>
           </div>
-          :
-          <div>
-          </div>
-          }
         </Col>
       </Row>
+      :
+      <Row>
+        <Col span={10} offset={7}>
+          <div style={{margin: "20% 0"}}>
+            <p style={{textAlign: "center", fontSize: "40px"}}>Block Search</p>
+            <SearchInput />
+          </div>
+        </Col>
+      </Row>
+      }
     </div>
   )
 }

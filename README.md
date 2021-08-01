@@ -1,6 +1,6 @@
 # 1. 概述
 
-该项目实现区块的查询和展示
+该项目实现区块的查询和展示，技术栈是`react17`。
 
 - UI参考
 
@@ -43,15 +43,16 @@ $ docker run -d -p 8080:80 shuzhang/block-search:0.1.0
 
 ## 如何测试
 
-- 打开浏览器，范围`http://127.0.0.1:8080`
-- 再搜索框输入`Block Height`或者`Block Hash`，例如645445，`回车`完成搜索
+- 打开浏览器，访问`http://127.0.0.1:8080`
+- 在搜索框输入`Block Height`或者`Block Hash`，例如645445，`回车`开始搜索
 - 查看确认搜索结果
+![Search Portal](./assets/search-portal.png)
 ![Block Headers](./assets/block-headers.png)
 ![Block Transaction List](./assets/transaction-list.png)
 
 # 3. Next
 
-由于时间原因遗留一些工作项，后续继续完善
+由于时间原因，遗留一些工作，后续继续完善
 
 - Block简介的一些数据，由于不清楚计算规则，暂未完成
 - Block Header的一些字段，暂未填写，为`Not Implemented`状态

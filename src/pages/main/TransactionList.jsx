@@ -79,7 +79,8 @@ export default (props) => {
                     }
                   </Col>
                   <Col span={6} style={{textAlign: "center"}}>
-                    <ArrowRightOutlined style={{color: "green", fontSize: "20px"}}/>
+                    {/* <ArrowRightOutlined style={{color: "green", fontSize: "20px"}}/> */}
+                    <svg t="1627830797043" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6291" width="30" height="30"><path d="M1013.037176 460.559059l-357.797647-327.68a38.550588 38.550588 0 0 0-51.139764 0.12047l-0.301177 228.472471H120.470588a60.235294 60.235294 0 0 0-60.235294 60.235294v120.470588a60.235294 60.235294 0 0 0 60.235294 60.235294h483.026824l-0.361412 233.532236a38.671059 38.671059 0 0 0 51.139765-0.180706l358.640941-328.402824a31.201882 31.201882 0 0 0 0.12047-46.802823z" fill="#1d9c4b" p-id="6292"></path></svg>
                   </Col>
                   <Col span={8} style={{textAlign: "right"}}>
                     {
