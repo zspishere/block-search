@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Input, Row, Col, Menu, Dropdown, Button, BackTop, message, notification } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
-import {getRowBlockInfo} from '../../utils/axios'
+import {getRawBlockInfo} from '../../utils/axios'
 import TransactionList from './TransactionList'
 import BlockProfile from './BlockProfile'
 
@@ -9,6 +9,7 @@ const legalCurrencies = [
   "USD","CNY","HKD","TWD","AUD","CAD","CHF","DKK","EUR","JPY"
 ]
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default () => {
   const [blockInfo, setBlockInfo] = useState()
   const [legalCurrency, setLegalCurrency] = useState(legalCurrencies[0])
@@ -16,7 +17,7 @@ export default () => {
 
   const search = (value, _) => {
     setLoading(true)
-    getRowBlockInfo(value, (err, resp)=>{
+    getRawBlockInfo(value, (err, resp)=>{
       if (err) {
         notification.error({
           message: 'Block Search Error',

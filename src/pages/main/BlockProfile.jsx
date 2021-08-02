@@ -1,4 +1,5 @@
-import React, {useState} from 'react'
+/* eslint-disable import/no-anonymous-default-export */
+import React from 'react'
 import { Descriptions, Tooltip, message, Radio, Row, Col } from 'antd'
 import moment from 'moment'
 import {numFormat} from '../../utils/common'

@@ -1,3 +1,4 @@
+/* eslint-disable import/no-anonymous-default-export */
 import React from 'react'
 import { Tooltip, Space } from 'antd'
 import { InfoCircleFilled } from '@ant-design/icons'

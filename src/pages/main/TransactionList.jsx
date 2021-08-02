@@ -1,6 +1,7 @@
+/* eslint-disable import/no-anonymous-default-export */
 import React from 'react'
 import { Tag, Row, Col, Space, message } from 'antd'
-import { ArrowRightOutlined, GlobalOutlined } from '@ant-design/icons'
+import { GlobalOutlined } from '@ant-design/icons'
 import ProList from '@ant-design/pro-list'
 import moment from 'moment'
 import CommonTitle from '../../components/title/Index'
